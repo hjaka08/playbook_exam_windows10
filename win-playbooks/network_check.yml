@@ -1,4 +1,4 @@
-- name: Check if infected with zombie pc
+- name: copy netstat log file for Check if infected with zombie pc
   hosts: all
   gather_facts: false
   tasks:
@@ -7,28 +7,29 @@
      path: C:\ansible\2022-03-26
      state: directory
 
-  - name: Run netstat n
+  - name: Run netstat n and save
     win_shell: cmd /C "netstat -n > C:\ansible\2022-03-26\zombie_checkn.log"
   
-  - name: Run netstat nb
+  - name: Run netstat nb and save
     win_shell: cmd /C "netstat -n > C:\ansible\2022-03-26\netstatnb.log"
   
-  - name: Run netstat ano
+  - name: Run netstat ano and save
     win_shell: cmd /C "netstat -ano > C:\ansible\2022-03-26\netstatano.log"
 
-  - name: Copy a zombie_log
+  - name: Copy a n_log
     ansible.builtin.fetch:
      src: C:\ansible\2022-03-26\zombie_checkn.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
-  - name: copy zombie log 2
+  - name: copy nb log
     ansible.builtin.fetch:
      src: C:\ansible\2022-03-26\netstatnb.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
 
-  - name: copy zombie log 3
+  - name: copy ano log
     ansible.builtin.fetch:
      src: C:\ansible\2022-03-26\netstatano.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
+# 원격지 서버 --> 로컬(ansible 운영) 서버로 파일 복사
