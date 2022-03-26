@@ -4,31 +4,31 @@
   tasks:
   - name: mkdir c
     ansible.windows.win_file: 
-     path: C:\ansible\2022-02-12
+     path: C:\ansible\2022-03-26
      state: directory
 
   - name: Run netstat n
-    win_shell: cmd /C "netstat -n > C:\ansible\2022-02-12\2022_02_12_zombie_checkn.log"
+    win_shell: cmd /C "netstat -n > C:\ansible\2022-03-26\zombie_checkn.log"
   
   - name: Run netstat nb
-    win_shell: cmd /C "netstat -n > C:\ansible\2022-02-12\2022_02_12_netstatnb.log"
+    win_shell: cmd /C "netstat -n > C:\ansible\2022-03-26\netstatnb.log"
   
   - name: Run netstat ano
-    win_shell: cmd /C "netstat -ano > C:\ansible\2022-02-12\2022_02_12_netstatano.log"
+    win_shell: cmd /C "netstat -ano > C:\ansible\2022-03-26\netstatano.log"
 
   - name: Copy a zombie_log
     ansible.builtin.fetch:
-     src: C:\ansible\2022-02-12\2022_02_12_zombie_checkn.log
+     src: C:\ansible\2022-03-26\zombie_checkn.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
   - name: copy zombie log 2
     ansible.builtin.fetch:
-     src: C:\ansible\2022-02-12\2022_02_12_zombie_checknb.log
+     src: C:\ansible\2022-03-26\netstatnb.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
 
   - name: copy zombie log 3
     ansible.builtin.fetch:
-     src: C:\ansible\2022-02-12\2022_02_12_zombie_checkano.log
+     src: C:\ansible\2022-03-26\netstatano.log
      dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
 
