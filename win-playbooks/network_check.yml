@@ -1,0 +1,34 @@
+- name: Check if infected with zombie pc
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: mkdir c
+    ansible.windows.win_file: 
+     path: C:\ansible\2022-02-12
+     state: directory
+
+  - name: Run netstat n
+    win_shell: cmd /C "netstat -n > C:\ansible\2022-02-12\2022_02_12_zombie_checkn.log"
+  
+  - name: Run netstat nb
+    win_shell: cmd /C "netstat -n > C:\ansible\2022-02-12\2022_02_12_netstatnb.log"
+  
+  - name: Run netstat ano
+    win_shell: cmd /C "netstat -ano > C:\ansible\2022-02-12\2022_02_12_netstatano.log"
+
+  - name: Copy a zombie_log
+    ansible.builtin.fetch:
+     src: C:\ansible\2022-02-12\2022_02_12_zombie_checkn.log
+     dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
+
+  - name: copy zombie log 2
+    ansible.builtin.fetch:
+     src: C:\ansible\2022-02-12\2022_02_12_zombie_checknb.log
+     dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
+
+
+  - name: copy zombie log 3
+    ansible.builtin.fetch:
+     src: C:\ansible\2022-02-12\2022_02_12_zombie_checkano.log
+     dest: /home/tower/zombie_logFile_{{ inventory_hostname }}
+
